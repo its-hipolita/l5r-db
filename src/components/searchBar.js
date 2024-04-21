@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import KeywordSearch from './keywordSearch';
 
 const SearchBar = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [legality, setLegality] = useState('');
     const [cardType, setCardType] = useState('');
     const [clan, setClan] = useState('');
+    const [keywordSearch, setKeywordSearch] = useState('');
+    const [selectedKeywords, setSelectedKeywords] = useState([]);
+    const [suggestedKeywords, setSuggestedKeywords] = useState([]);
     const handleSearch = (e) => {
         e.preventDefault();
         const searchOptions = {
@@ -73,6 +77,150 @@ const SearchBar = ({ onSearch }) => {
         "unaligned"
     ]
 
+    const keywordsArray = [
+        "Clan",
+        "Samurai",
+        "Yojimbo",
+        "Battle:",
+        "Shadowlands",
+        "Nonhuman",
+        "Goblin",
+        "Scout",
+        "Oni",
+        "province.",
+        "Honor.",
+        "Fire",
+        "Shugenja",
+        "Battle/Open:",
+        "Air",
+        "Cavalry",
+        "Destined",
+        "Abomination",
+        "Naga",
+        "Champion",
+        "2",
+        "Pearl",
+        "Unique",
+        "Asp",
+        "Cobra",
+        "Experienced",
+        "Contrictor",
+        "Commander",
+        "Conqueror",
+        "Sincerity",
+        "Siege",
+        "4",
+        "Resilient",
+        "Cruel",
+        "Earth",
+        "Jade",
+        "Magistrate",
+        "Kolat",
+        "Crane",
+        "3",
+        "Artisan",
+        "Courtier",
+        "Duelist",
+        "Kensai",
+        "Monk",
+        "Tatooed",
+        "Tactician",
+        "Historian",
+        "Beastmaster",
+        "Hero",
+        "Imperial",
+        "Thunder",
+        "Naval",
+        "Alchemist",
+        "Void",
+        "Inquisitor",
+        "Master",
+        "Loyal",
+        "Water",
+        "Tejina",
+        "Lies",
+        "Expendable",
+        "Ninja",
+        "Tairao",
+        "Reserve",
+        "Undead",
+        "Greensnake",
+        "Spider",
+        "Spirit",
+        "Kumo",
+        "Warlord",
+        "Savior",
+        "Maiden",
+        "Paragon",
+        "Inexperienced",
+        "Insane",
+        "ExperiencedCW",
+        "2CW",
+        "Bushi",
+        "Chameleon",
+        "Constrictor",
+        "Berserker",
+        "Tadama",
+        "Gunso",
+        "Governor",
+        "Braggart",
+        "Tattooed",
+        "Higaru",
+        "Deathseeker",
+        "Elite",
+        "Kharmic",
+        "Renew",
+        "Daimyo",
+        "6",
+        "Sociopath",
+        "Kuroiban",
+        "Cultist",
+        "Bloodspeaker",
+        "Enlightened",
+        "Ogre",
+        "5",
+        "Assassin",
+        "Geisha",
+        "Ronin",
+        "Priest",
+        "Kami",
+        "Brawler",
+        "Drunkard",
+        "Hunter",
+        "Harrier",
+        "Saboteur",
+        "Poet",
+        "Kenshinzen",
+        "Yamabushi",
+        "Sodan-Senzo",
+        "Philosopher",
+        "Archer",
+        "Tochiko",
+        "Duty",
+        "Merchant",
+        "Fudo",
+        "Ancestor",
+        "Kitsu",
+        "Ayameko",
+        "Kitsune",
+        "Horror",
+        "Danna-sama",
+        "Mercenary",
+        "Ichido",
+        "Infiltrator",
+        "Keirei",
+        "Sato",
+        "Fallen",
+        "Enforcer",
+        "Kobun",
+        "Hag",
+        "Smuggler",
+        "Pirate",
+        "Kuniken"
+    ];
+    
+    
+
     return (
         <div className="max-w-md mx-auto">
             <form onSubmit={handleSearch} className="mb-4">
@@ -131,6 +279,9 @@ const SearchBar = ({ onSearch }) => {
                             <option key={index} value={clan}>{clan}</option>
                         ))}
                     </select>
+                </label>
+                <label className="block mb-2">
+                    <KeywordSearch></KeywordSearch>
                 </label>
                 {/* Add more dropdowns and inputs for additional search options as needed */}
             </div>
