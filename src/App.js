@@ -2,14 +2,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'; 
-import Homepage from './components/home'; 
+import './index.css';
+import Homepage from './components/home';
+
 
 const App = () => {
   return (
-    <div>
       <Homepage />
-    </div>
   );
 };
 

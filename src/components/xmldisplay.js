@@ -80,13 +80,16 @@ const XMLDisplay = ({ searchOptions }) => {
     const filterCards = (data, options) => {
         console.log("options to filter");
         console.log(options);
-        if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan)) {
+        
+        let dummyKeywords = ["Shugenja"];
+        if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan || dummyKeywords)) {
             const filtered = data.cards.filter(card => {
                 let matchesName = true;
                 let matchesLegality = true;
                 let matchesType = true;
                 let matchesClan = true;
-    
+                let matchesKeyword = true;
+
                 // Extract filename from the end of the image URL
                 const imageUrlParts = card.image.split('/');
                 const imageName = imageUrlParts[imageUrlParts.length - 1];
@@ -111,13 +114,40 @@ const XMLDisplay = ({ searchOptions }) => {
                 if (options.clan) {
                     matchesClan = card.clan === options.clan;
                 }
-                return matchesName && matchesLegality && matchesType && matchesClan && hasImage;
+                // Filter based on keywords
+                if (options.keywords){
+                    const keywordsInCardText = parseKeywordsFromText(card);
+                    matchesKeyword = options.keywords.every(keyword => keywordsInCardText.includes(keyword));
+                }
+                /* if (dummyKeywords) {
+                    const keywordsInCardText = parseKeywordsFromText(card);
+                    matchesKeyword = dummyKeywords.every(keyword => keywordsInCardText.includes(keyword));
+                }
+             */
+                return matchesName && matchesLegality && matchesType && matchesClan && matchesKeyword && hasImage;
             });
             return filtered;
         }
         return [];
     };
     
+
+// Function to parse keywords from card text
+// Function to parse keywords from card text
+const parseKeywordsFromText = (card) => {
+    const startIndex = 0;
+    const endIndex = card.text.indexOf('<br>');
+    const isCorrectType = card.type === "personality" || card.type === "item";
+    const isLegal = card.legal.includes("onyx") || card.legal.includes("shattered_empire");
+
+    if (isCorrectType && startIndex !== -1 && endIndex !== -1) {
+        const keywordsText = card.text.substring(startIndex, endIndex);
+        const keywords = keywordsText.split(/&#8226;|<br>/).map(keyword => keyword.trim());
+        return keywords;
+    }
+
+    return [];
+};
 
 
 
