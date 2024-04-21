@@ -3,18 +3,15 @@ import XMLDisplay from './xmldisplay';
 import SearchBar from './searchBar';
 
 const Home = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [selectedLegality, setSelectedLegality] = useState('');
+    const [searchOptions, setSearchOptions] = useState({});
 
-    const handleSearch = (name, legality) => {
-        setSearchTerm(name);
-        setSelectedLegality(legality);
+    const handleSearch = (newSearchOptions) => {
+        setSearchOptions(newSearchOptions);
     };
-
     return (
         <div>
             <SearchBar onSearch={handleSearch} />
-            <XMLDisplay searchTerm={searchTerm} selectedLegality={selectedLegality} />
+            <XMLDisplay searchOptions={searchOptions} />
         </div>
     );
 };
