@@ -6,6 +6,7 @@ const Home = () => {
     const [searchOptions, setSearchOptions] = useState({});
 
     const handleSearch = (newSearchOptions) => {
+        console.log(newSearchOptions);
         setSearchOptions(newSearchOptions);
     };
     return (

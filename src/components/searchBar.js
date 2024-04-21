@@ -4,13 +4,14 @@ const SearchBar = ({ onSearch }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [legality, setLegality] = useState('');
     const [cardType, setCardType] = useState('');
-
+    const [clan, setClan] = useState('');
     const handleSearch = (e) => {
         e.preventDefault();
         const searchOptions = {
             searchTerm,
             legality,
-            type: cardType
+            type: cardType,
+            clan,
         };
         console.log(searchOptions);
         onSearch(searchOptions);
@@ -29,9 +30,9 @@ const SearchBar = ({ onSearch }) => {
         "open",
         "samurai",
         "shattered_empire"
-      ]
+    ]
 
-      const cardTypes = [
+    const cardTypes = [
         "strategy",
         "region",
         "holding",
@@ -46,7 +47,31 @@ const SearchBar = ({ onSearch }) => {
         "wind",
         "ring",
         "celestial"
-      ]
+    ]
+
+    const clanList = [
+        "crane",
+        "naga",
+        "spirit",
+        "mantis",
+        "scorpion",
+        "crab",
+        "shadowlands",
+        "lion",
+        "phoenix",
+        "unicorn",
+        "spider",
+        "monk",
+        "ratling",
+        "dragon",
+        "toturi",
+        "ninja",
+        "hare",
+        "shinsei",
+        "ronin",
+        "akasha",
+        "unaligned"
+    ]
 
     return (
         <div className="max-w-md mx-auto">
@@ -70,7 +95,7 @@ const SearchBar = ({ onSearch }) => {
             <div className="mt-4 p-4 border border-gray-300 rounded">
                 <label className="block mb-2">
                     Legalities:
-                    <select 
+                    <select
                         value={legality}
                         onChange={(e) => setLegality(e.target.value)}
                         className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
@@ -83,7 +108,7 @@ const SearchBar = ({ onSearch }) => {
                 </label>
                 <label className="block mb-2">
                     Card Types:
-                    <select 
+                    <select
                         value={cardType}
                         onChange={(e) => setCardType(e.target.value)}
                         className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
@@ -91,6 +116,19 @@ const SearchBar = ({ onSearch }) => {
                         <option value="">All Types</option>
                         {cardTypes.map((type, index) => (
                             <option key={index} value={type}>{type}</option>
+                        ))}
+                    </select>
+                </label>
+                <label className="block mb-2">
+                    Clan:
+                    <select
+                        value={clan}
+                        onChange={(e) => setClan(e.target.value)}
+                        className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                        <option value="">All Types</option>
+                        {clanList.map((clan, index) => (
+                            <option key={index} value={clan}>{clan}</option>
                         ))}
                     </select>
                 </label>
