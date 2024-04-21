@@ -7,9 +7,10 @@ import '@fontsource/inter';
 import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 
+
 ReactDOM.render(
   
-  <CssVarsProvider>
+  <CssVarsProvider >
   <CssBaseline />
     <App />
   </CssVarsProvider>,

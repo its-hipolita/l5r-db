@@ -7,10 +7,9 @@ const xmlData = fs.readFileSync(xmlFilePath, 'utf-8');
 
 const extractKeywords = (xmlData) => {
     const keywordsSet = new Set();
-    const cardRegex = /<card id="[^"]+" type="personality">([\s\S]*?)<\/card>/g;
+    const cardRegex = /<card id="[^"]+"(?: type="[^"]+")?>([\s\S]*?)<\/card>/g; // Removed type="personality" filter
     const textRegex = /<!\[CDATA\[(.*?)(?=<br><br>)/g;
     const keywordRegex = /(?<![0-9]\S)[^>&#;\s]+(?=\s*(&#8226;|<\/b>|<br>))/g;
-
 
     let match;
     while ((match = cardRegex.exec(xmlData)) !== null) {

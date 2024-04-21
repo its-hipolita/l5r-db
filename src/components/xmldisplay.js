@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import CardGallery from './CardGallery';
 import imageList from '../services/imageList.json';
+import { Select, Option, Button } from '@mui/joy';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 
 const XMLDisplay = ({ searchOptions }) => {
     const [xmlData, setXmlData] = useState(null);
     const [filteredCards, setFilteredCards] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cardsPerPage, setCardsPerPage] = useState(20);
 
     useEffect(() => {
         if (searchOptions) {
@@ -33,6 +37,7 @@ const XMLDisplay = ({ searchOptions }) => {
         if (xmlData && Object.keys(searchOptions).length > 0) {
             const filtered = filterCards(xmlData, searchOptions);
             setFilteredCards(filtered);
+            setCurrentPage(1); // Reset to first page when search options change
         }
     }, [searchOptions, xmlData]);
 
@@ -80,7 +85,7 @@ const XMLDisplay = ({ searchOptions }) => {
     const filterCards = (data, options) => {
         console.log("options to filter");
         console.log(options);
-        
+
         let dummyKeywords = ["Shugenja"];
         if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan || dummyKeywords)) {
             const filtered = data.cards.filter(card => {
@@ -94,28 +99,28 @@ const XMLDisplay = ({ searchOptions }) => {
                 const imageUrlParts = card.image.split('/');
                 const imageName = imageUrlParts[imageUrlParts.length - 1];
                 const hasImage = imageList.includes(imageName);
-                
+
                 // Check if the card name partially matches the search term
                 if (options.searchTerm) {
                     matchesName = card.name.toLowerCase().includes(options.searchTerm.toLowerCase());
                 }
-    
+
                 // Check if the card includes the selected legality in its legal properties
                 if (options.legality) {
                     matchesLegality = card.legal.includes(options.legality);
                 }
-    
+
                 // Check if the card matches the selected type
                 if (options.type) {
                     matchesType = card.type === options.type;
                 }
-    
+
                 // Check if the card matches the selected type
                 if (options.clan) {
                     matchesClan = card.clan === options.clan;
                 }
                 // Filter based on keywords
-                if (options.keywords){
+                if (options.keywords) {
                     const keywordsInCardText = parseKeywordsFromText(card);
                     matchesKeyword = options.keywords.every(keyword => keywordsInCardText.includes(keyword));
                 }
@@ -130,26 +135,39 @@ const XMLDisplay = ({ searchOptions }) => {
         }
         return [];
     };
-    
 
-// Function to parse keywords from card text
-// Function to parse keywords from card text
-const parseKeywordsFromText = (card) => {
-    const startIndex = 0;
-    const endIndex = card.text.indexOf('<br>');
-    const isCorrectType = card.type === "personality" || card.type === "item";
-    const isLegal = card.legal.includes("onyx") || card.legal.includes("shattered_empire");
 
-    if (isCorrectType && startIndex !== -1 && endIndex !== -1) {
-        const keywordsText = card.text.substring(startIndex, endIndex);
-        const keywords = keywordsText.split(/&#8226;|<br>/).map(keyword => keyword.trim());
-        return keywords;
+    // Function to parse keywords from card text
+    // Function to parse keywords from card text
+    const parseKeywordsFromText = (card) => {
+        const startIndex = 0;
+        const endIndex = card.text.indexOf('<br>');
+        const isCorrectType = card.type === "personality" || card.type === "item";
+        const isLegal = card.legal.includes("onyx") || card.legal.includes("shattered_empire");
+
+        if (isCorrectType && startIndex !== -1 && endIndex !== -1) {
+            const keywordsText = card.text.substring(startIndex, endIndex);
+            const keywords = keywordsText.split(/&#8226;|<br>/).map(keyword => keyword.trim());
+            return keywords;
+        }
+
+        return [];
+    };
+    // Calculate index of the last card on the current page
+    const indexOfLastCard = currentPage * cardsPerPage;
+    // Calculate index of the first card on the current page
+    const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+    // Get current cards to display on the current page
+    const currentCards = filteredCards.slice(indexOfFirstCard, indexOfLastCard);
+
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // Render page numbers
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(filteredCards.length / cardsPerPage); i++) {
+        pageNumbers.push(i);
     }
-
-    return [];
-};
-
-
 
     return (
         <div>
@@ -157,10 +175,60 @@ const parseKeywordsFromText = (card) => {
                 <p>Loading XML data...</p>
             ) : (
                 <div>
-                    {filteredCards.length > 0 ? (
-                        <CardGallery cards={filteredCards} />
-                    ) : (
-                        <p>{Object.keys(searchOptions).length > 0 ? 'No matching cards found.' : 'Enter a search term to find cards.'}</p>
+                    <CardGallery cards={currentCards} />
+                    {filteredCards.length > 0 && (
+                        <div className="pagination-container flex items-center justify-center mt-4">
+                            <div className="flex items-center space-x-6">
+                                <Button
+                                    disabled={currentPage === 1}
+                                    onClick={() => paginate(1)}
+                                    variant="text"
+                                    size="small"
+                                >
+                                    <ChevronLeftIcon className="h-5 w-5" />
+                                </Button>
+                                <Button
+                                    disabled={currentPage === 1}
+                                    onClick={() => paginate(currentPage - 1)}
+                                    variant="text"
+                                    size="small"
+                                >
+                                    Previous
+                                </Button>
+                                {pageNumbers.map((number) => (
+                                    <Button
+                                        key={number}
+                                        onClick={() => paginate(number)}
+                                        variant="text"
+                                        size="small"
+                                        sx={{
+                                            ...(currentPage === number && {
+                                                backgroundColor: 'gray.200', // Light gray background for the active page
+                                            }),
+                                        }}
+                                    >
+                                        {number}
+                                    </Button>
+                                ))}
+
+                                <Button
+                                    disabled={currentPage === Math.ceil(filteredCards.length / cardsPerPage)}
+                                    onClick={() => paginate(currentPage + 1)}
+                                    variant="text"
+                                    size="small"
+                                >
+                                    Next
+                                </Button>
+                                <Button
+                                    disabled={currentPage === Math.ceil(filteredCards.length / cardsPerPage)}
+                                    onClick={() => paginate(Math.ceil(filteredCards.length / cardsPerPage))}
+                                    variant="text"
+                                    size="small"
+                                >
+                                    <ChevronRightIcon className="h-5 w-5" />
+                                </Button>
+                            </div>
+                        </div>
                     )}
                 </div>
             )}

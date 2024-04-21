@@ -6,13 +6,20 @@ const Home = () => {
     const [searchOptions, setSearchOptions] = useState({});
 
     const handleSearch = (newSearchOptions) => {
-        console.log(newSearchOptions);
         setSearchOptions(newSearchOptions);
     };
+
     return (
-        <div>
-            <SearchBar onSearch={handleSearch} />
-            <XMLDisplay searchOptions={searchOptions} />
+        <div className="flex h-screen">
+            {/* Left Sidebar (SearchBar) */}
+            <div className="w-1/4 bg-gray-200 p-4">
+                <SearchBar onSearch={handleSearch} />
+            </div>
+
+            {/* Right Content (Card Gallery) */}
+            <div className="w-3/4 p-4 overflow-y-auto">
+                <XMLDisplay searchOptions={searchOptions} />
+            </div>
         </div>
     );
 };

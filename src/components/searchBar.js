@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import CustomSelect from './customSelect';
 import KeywordSearch from './keywordSearch';
-import { Input, Button, Select } from '@mui/joy';
-import Option from '@mui/joy/Option';
+import { Input, Button, Stack } from '@mui/joy'; // Import Stack from Joy UI
+
 import cardTypes from '../data/cardTypes';
 import clanList from '../data/clanList';
 import legalities from '../data/legalities';
@@ -12,7 +13,6 @@ const SearchBar = ({ onSearch }) => {
     const [cardType, setCardType] = useState('');
     const [clan, setClan] = useState('');
     const [selectedKeywords, setSelectedKeywords] = useState([]);
-    const action = React.useRef(null);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -21,22 +21,19 @@ const SearchBar = ({ onSearch }) => {
             legality,
             type: cardType,
             clan,
-            keywords: selectedKeywords // Include selectedKeywords in searchOptions
+            keywords: selectedKeywords
         };
-        console.log(searchOptions);
         onSearch(searchOptions);
     };
 
-    // Callback function to receive selected keywords from KeywordSearch component
     const handleKeywordSearch = (selectedOptions) => {
-        // Update the selectedKeywords state with the received selected options
         setSelectedKeywords(selectedOptions);
     };
 
     return (
-        <div className="max-w-md mx-auto">
+        <Stack className="max-w-md mx-auto" spacing={4}> {/* Use Stack instead of Box */}
             <form onSubmit={handleSearch} className="mb-4">
-                <div className="flex items-center justify-between border-b border-b-2 border-teal-500 py-2">
+                <Stack direction="row" alignItems="center" justifyContent="space-between" borderBottom="2px solid teal" py={2}>
                     <Input
                         type="text"
                         value={searchTerm}
@@ -50,69 +47,33 @@ const SearchBar = ({ onSearch }) => {
                     >
                         Search
                     </Button>
-                </div>
+                </Stack>
             </form>
-            <div className="mt-4 p-4 border border-gray-300 rounded">
-
-                <Select
+            <Stack spacing={2} p={2}>
+                <CustomSelect
                     value={cardType}
-                    onChange={(e, newValue) => setCardType(newValue)}
+                    onChange={setCardType}
                     placeholder="All card types"
-                    {...(cardType && {
-                        // display the button and remove select indicator
-                        // when user has selected a value
-                        endDecorator: (
-                            {/* <IconButton
-                                size="sm"
-                                variant="plain"
-                                color="neutral"
-                                onMouseDown={(e) => {
-                                    // don't open the popup when clicking on this button
-                                    e.stopPropagation();
-                                }}
-                                onClick={() => {
-                                    setCardType('');
-                                    action.current?.focusVisible();
-                                }}
-                            >
-                                <CloseRounded />
-                            </IconButton> */}
-                        ),
-                        indicator: null,
-                    })}
-                >
-                    {cardTypes.map((cardType, index) => (
-                        <Option key={index} value={cardType}>
-                            {cardType}
-                        </Option>
-                    ))}
-                </Select>
-                <Select
+                    options={cardTypes}
+                    clearValue={() => setCardType('')}
+                />
+                <CustomSelect
                     value={legality}
-                    onChange={(e, newValue) => setLegality(newValue)}
+                    onChange={setLegality}
                     placeholder="All legalities"
-                >
-                    {legalities.map((legality, index) => (
-                        <Option key={index} value={legality}>
-                            {legality}
-                        </Option>
-                    ))}
-                </Select>
-                <Select
+                    options={legalities}
+                    clearValue={() => setLegality('')}
+                />
+                <CustomSelect
                     value={clan}
-                    onChange={(e, newValue) => setClan(newValue)}
+                    onChange={setClan}
                     placeholder="All clans"
-                >
-                    {clanList.map((clan, index) => (
-                        <Option key={index} value={clan}>
-                            {clan}
-                        </Option>
-                    ))}
-                </Select>
-
+                    options={clanList}
+                    clearValue={() => setClan('')}
+                />
                 <KeywordSearch onSearch={handleKeywordSearch} />
-            </div>
-        </div>
+            </Stack>
+        </Stack>
     );
 };
 
