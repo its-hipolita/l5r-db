@@ -37,8 +37,8 @@ const Card = ({ card }) => {
                 {card.force && <p className="text-sm">Force: {card.force}</p>}
                 {card.chi && <p className="text-sm">Chi: {card.chi}</p>}
                 {card.personal_honor && <p className="text-sm">Personal honor: {card.personal_honor}</p>} */}
-                {keywords && <div className="my-4" dangerouslySetInnerHTML={{ __html: `<ul>${keywords}</ul>` }} />}
-                {remainingText && <p className="text-sm my-4" dangerouslySetInnerHTML={{ __html: remainingText }} />}
+                {keywords && <div className="my-1" dangerouslySetInnerHTML={{ __html: `<ul>${keywords}</ul>` }} />}
+                {remainingText && <p className="text-sm" dangerouslySetInnerHTML={{ __html: remainingText }} />}
             </div>
         </div>
     );
