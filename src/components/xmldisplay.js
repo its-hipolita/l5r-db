@@ -8,7 +8,7 @@ const XMLDisplay = ({ searchOptions }) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (searchOptions.searchTerm) {
+        if (searchOptions) {
             setLoading(true);
             const fetchXMLData = async () => {
                 try {
@@ -27,7 +27,7 @@ const XMLDisplay = ({ searchOptions }) => {
 
             fetchXMLData();
         }
-    }, [searchOptions.searchTerm]);
+    }, [searchOptions]);
 
     useEffect(() => {
         if (xmlData && Object.keys(searchOptions).length > 0) {
@@ -78,11 +78,14 @@ const XMLDisplay = ({ searchOptions }) => {
     };
 
     const filterCards = (data, options) => {
-        if (data && data.cards && (options.searchTerm || options.legality || options.type)) {
+        console.log("options to filter");
+        console.log(options);
+        if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan)) {
             const filtered = data.cards.filter(card => {
                 let matchesName = true;
                 let matchesLegality = true;
                 let matchesType = true;
+                let matchesClan = true;
     
                 // Extract filename from the end of the image URL
                 const imageUrlParts = card.image.split('/');
@@ -104,7 +107,11 @@ const XMLDisplay = ({ searchOptions }) => {
                     matchesType = card.type === options.type;
                 }
     
-                return matchesName && matchesLegality && matchesType && hasImage;
+                // Check if the card matches the selected type
+                if (options.clan) {
+                    matchesClan = card.clan === options.clan;
+                }
+                return matchesName && matchesLegality && matchesType && matchesClan && hasImage;
             });
             return filtered;
         }
