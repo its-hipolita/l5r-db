@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import CardGallery from './CardGallery';
 import imageList from '../services/imageList.json';
 
-const XMLDisplay = ({ searchTerm, selectedLegality }) => {
+const XMLDisplay = ({ searchOptions }) => {
     const [xmlData, setXmlData] = useState(null);
     const [filteredCards, setFilteredCards] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (searchTerm) {
+        if (searchOptions.searchTerm) {
             setLoading(true);
             const fetchXMLData = async () => {
                 try {
@@ -27,14 +27,14 @@ const XMLDisplay = ({ searchTerm, selectedLegality }) => {
 
             fetchXMLData();
         }
-    }, [searchTerm]);
+    }, [searchOptions.searchTerm]);
 
     useEffect(() => {
-        if (xmlData && searchTerm) {
-            const filtered = filterCardsByName(xmlData, searchTerm, selectedLegality);
+        if (xmlData && Object.keys(searchOptions).length > 0) {
+            const filtered = filterCards(xmlData, searchOptions);
             setFilteredCards(filtered);
         }
-    }, [searchTerm, selectedLegality, xmlData]);
+    }, [searchOptions, xmlData]);
 
     const xmlToJson = (xml) => {
         const json = {
@@ -77,42 +77,40 @@ const XMLDisplay = ({ searchTerm, selectedLegality }) => {
         return json;
     };
 
-    const filterCardsByName = (data, name, legality) => {
-        console.log(legality);
-        if (data && data.cards && (name || legality)) {
+    const filterCards = (data, options) => {
+        if (data && data.cards && (options.searchTerm || options.legality || options.type)) {
             const filtered = data.cards.filter(card => {
                 let matchesName = true;
                 let matchesLegality = true;
-
+                let matchesType = true;
+    
                 // Extract filename from the end of the image URL
                 const imageUrlParts = card.image.split('/');
                 const imageName = imageUrlParts[imageUrlParts.length - 1];
                 const hasImage = imageList.includes(imageName);
-                if (!hasImage) {
-                } else {
-
-                    // Check if the card name partially matches the search term
-                    if (name) {
-                        matchesName = card.name.toLowerCase().includes(name.toLowerCase());
-                        if (matchesName) {                
-                            console.log("name match");
-                        }
-                    }
-
-                    // Check if the card includes the selected legality in its legal properties
-                    if (legality) {
-                        matchesLegality = card.legal.includes(legality);
-                    }
-
+                
+                // Check if the card name partially matches the search term
+                if (options.searchTerm) {
+                    matchesName = card.name.toLowerCase().includes(options.searchTerm.toLowerCase());
                 }
-
-
-                return matchesName && matchesLegality && hasImage;
+    
+                // Check if the card includes the selected legality in its legal properties
+                if (options.legality) {
+                    matchesLegality = card.legal.includes(options.legality);
+                }
+    
+                // Check if the card matches the selected type
+                if (options.type) {
+                    matchesType = card.type === options.type;
+                }
+    
+                return matchesName && matchesLegality && matchesType && hasImage;
             });
             return filtered;
         }
         return [];
     };
+    
 
 
 
@@ -125,7 +123,7 @@ const XMLDisplay = ({ searchTerm, selectedLegality }) => {
                     {filteredCards.length > 0 ? (
                         <CardGallery cards={filteredCards} />
                     ) : (
-                        <p>{searchTerm ? 'No matching cards found.' : 'Enter a search term to find cards.'}</p>
+                        <p>{Object.keys(searchOptions).length > 0 ? 'No matching cards found.' : 'Enter a search term to find cards.'}</p>
                     )}
                 </div>
             )}
