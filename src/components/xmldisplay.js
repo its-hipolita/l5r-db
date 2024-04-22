@@ -16,8 +16,8 @@ const XMLDisplay = ({ searchOptions }) => {
             setLoading(true);
             const fetchXMLData = async () => {
                 try {
-                    /* const response = await fetch('/db/database.xml'); */
-                    const response = await fetch('/db/dummydata.xml');
+                    const response = await fetch('/db/database.xml');
+                    /* const response = await fetch('/db/dummydata.xml'); */
                     const text = await response.text();
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(text, 'text/xml');
