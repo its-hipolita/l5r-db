@@ -50,9 +50,7 @@ const XMLDisplay = ({ searchOptions }) => {
         const cardNodes = xml.querySelectorAll('card');
         cardNodes.forEach((cardNode) => {
             const edition = cardNode.querySelector('edition')?.textContent || '';
-            // Array of allowed editions
             const allowedEditions = ['AM', 'AMoH', 'CRI', 'EP', 'GoC', 'GS', 'HFW', 'Ivory', 'Onyx', 'Promo', 'RoJ', 'ROU', 'RtR', 'SCW', 'TBS', 'TCW', 'ThA', 'TwentyFestivals'];
-            // Check if the card's edition is in the allowed editions array
             if (allowedEditions.includes(edition)) {
                 const card = {
                     id: cardNode.getAttribute('id'),
@@ -87,14 +85,15 @@ const XMLDisplay = ({ searchOptions }) => {
         console.log("options to filter");
         console.log(options);
 
-        if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan || options.keywords)) {
+        if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan || options.keywords || options.textSearch)) {
             const filtered = data.cards.filter(card => {
                 let matchesName = true;
                 let matchesLegality = true;
                 let matchesType = true;
                 let matchesClan = true;
                 let matchesKeyword = true;
-                
+                let matchesTextSearch = true;
+
                 const imageUrlParts = card.image.split('/');
                 const imageName = imageUrlParts[imageUrlParts.length - 1];
                 const hasImage = imageList.includes(imageName);
@@ -128,7 +127,12 @@ const XMLDisplay = ({ searchOptions }) => {
                     }
                 }
 
-                return matchesName && matchesLegality && matchesType && matchesClan && matchesKeyword && hasImage;
+                // Check if the card text contains the search term
+                if (options.textSearch) {
+                    matchesTextSearch = card.text.toLowerCase().includes(options.textSearch.toLowerCase());
+                }
+
+                return matchesName && matchesLegality && matchesType && matchesClan && matchesKeyword && matchesTextSearch && hasImage;
             });
             return filtered;
         }

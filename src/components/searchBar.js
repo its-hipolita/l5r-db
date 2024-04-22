@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CustomSelect from './customSelect';
 import KeywordSearch from './keywordSearch';
 import { Input, Button, Stack } from '@mui/joy'; // Import Stack from Joy UI
-
+import TextSearchInput from './textSearchInput';
 import cardTypes from '../data/cardTypes';
 import clanList from '../data/clanList';
 import legalities from '../data/legalities';
@@ -14,6 +14,7 @@ const SearchBar = ({ onSearch }) => {
     const [clan, setClan] = useState('');
     const [selectedKeywords, setSelectedKeywords] = useState([]);
     const [andOrSearch, setAndOrSearch] = useState([false]);
+    const [textSearch, setTextSearch] = useState('');
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -23,7 +24,8 @@ const SearchBar = ({ onSearch }) => {
             type: cardType,
             clan,
             keywords: selectedKeywords,
-            exclusiveSearch: andOrSearch
+            exclusiveSearch: andOrSearch,
+            textSearch: textSearch, // Pass as string
         };
         onSearch(searchOptions);
     };
@@ -33,8 +35,10 @@ const SearchBar = ({ onSearch }) => {
         setAndOrSearch(andOrSearch);
     };
 
+
+
     return (
-        <Stack className="max-w-md mx-auto" spacing={4}> {/* Use Stack instead of Box */}
+        <Stack className="max-w-md mx-auto" spacing={4}>
             <form onSubmit={handleSearch} className="mb-4">
                 <Stack direction="row" alignItems="center" justifyContent="space-between" borderBottom="2px solid teal" py={2}>
                     <Input
@@ -51,7 +55,6 @@ const SearchBar = ({ onSearch }) => {
                         Search
                     </Button>
                 </Stack>
-            </form>
             <Stack spacing={2} p={2}>
                 <CustomSelect
                     value={cardType}
@@ -75,7 +78,15 @@ const SearchBar = ({ onSearch }) => {
                     clearValue={() => setClan('')}
                 />
                 <KeywordSearch onSearch={handleKeywordSearch} />
+                <Input
+                        type="text"
+                        value={textSearch}
+                        onChange={(e) => setTextSearch(e.target.value)}
+                        placeholder="Search within card text"
+                    />
             </Stack>
+            
+            </form>
         </Stack>
     );
 };
