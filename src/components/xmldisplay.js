@@ -95,7 +95,7 @@ const XMLDisplay = ({ searchOptions }) => {
                 let matchesType = true;
                 let matchesClan = true;
                 let matchesKeyword = true;
-                // Extract filename from the end of the image URL
+                
                 const imageUrlParts = card.image.split('/');
                 const imageName = imageUrlParts[imageUrlParts.length - 1];
                 const hasImage = imageList.includes(imageName);
