@@ -1,6 +1,6 @@
 <cards version="2024/4/15 Onyx Oracle Edition (playtest)">	<!--"Oct 4, 2015 Kamisasori no Kaisho (Complete), Nov 28, 2017 Kolat 1.3.4">-->
 
-<card id="TBS099" type="item">
+<!-- <card id="TBS099" type="item">
 		<name>Decayed Blade</name>
 		<rarity>c</rarity>
 		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS099.jpg</image>
@@ -35,6 +35,45 @@
 		<text><![CDATA[Jade &#8226; Two-Handed &#8226; Sword &#8226; <b>Weapon</b><br><br>This Weapon is One-Handed while<br>attached to a Berserker.<br><br><b>Engage, [BOW]:</b> Draw a card, then discard a card unless this Personality is opposing any Shadowlands cards. ]]></text>
 		<force>3</force>
 		<chi>1</chi>
+		<cost>5</cost>
+		<focus>2</focus>
+	</card> -->
+    <card id="TBS085" type="follower">
+		<name>Black Rabble</name>
+		<rarity>c</rarity>
+		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS085.jpg</image>
+		<legal>open</legal>
+		<legal>20F</legal>
+		<legal>onyx</legal>
+		<text><![CDATA[Goblin &#8226; Nonhuman &#8226; Shadowlands &#8226; Undead &#8226; <b>Expendable</b><br><br> After this Follower enters play, lose 2 Honor.<br><br><b>Battle:</b> Fear 2.]]></text>
+		<force>2</force>
+		<chi>0</chi>
+		<cost>2</cost>
+		<focus>2</focus>
+	</card>
+    <card id="TBS092" type="follower">
+		<name>Shinomen Defenders</name>
+		<rarity>c</rarity>
+		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS092.jpg</image>
+		<legal>open</legal>
+		<legal>20F</legal>
+		<legal>onyx</legal>
+		<text><![CDATA[Naga &#8226; Nonhuman &#8226; <b>Expendable</b><br><br><b>Battle, [BOW]:</b> Ranged 3 Attack.]]></text>
+		<force>0</force>
+		<chi>0</chi>
+		<cost>3</cost>
+		<focus>3</focus>
+	</card>
+    <card id="TBS089" type="follower">
+		<name>Kitra's Pride</name>
+		<rarity>c</rarity>
+		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS089.jpg</image>
+		<legal>open</legal>
+		<legal>20F</legal>
+		<legal>onyx</legal>
+		<text><![CDATA[Cat &#8226; Nonhuman &#8226; <b>Cavalry</b><br><br><b>Battle/Engage:</b> Give a target enemy Follower or Personality -2F.]]></text>
+		<force>3</force>
+		<chi>0</chi>
 		<cost>5</cost>
 		<focus>2</focus>
 	</card>

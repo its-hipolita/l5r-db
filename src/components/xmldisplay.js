@@ -87,8 +87,7 @@ const XMLDisplay = ({ searchOptions }) => {
         console.log("options to filter");
         console.log(options);
 
-        let dummyKeywords = ["Shugenja"];
-        if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan || dummyKeywords)) {
+        if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan || options.keywords)) {
             const filtered = data.cards.filter(card => {
                 let matchesName = true;
                 let matchesLegality = true;
@@ -123,18 +122,12 @@ const XMLDisplay = ({ searchOptions }) => {
                 if (options.keywords) {
                     const keywordsInCardText = parseKeywordsFromText(card);
                     if (options.exclusiveSearch) {
-                        // Exclusive search: Return cards that match ALL keywords
                         matchesKeyword = options.keywords.every(keyword => keywordsInCardText.includes(keyword));
                     } else {
-                        // Inclusive search: Return cards that match ANY keyword
                         matchesKeyword = options.keywords.some(keyword => keywordsInCardText.includes(keyword));
                     }
                 }
-                /* if (dummyKeywords) {
-                    const keywordsInCardText = parseKeywordsFromText(card);
-                    matchesKeyword = dummyKeywords.every(keyword => keywordsInCardText.includes(keyword));
-                }
-             */
+
                 return matchesName && matchesLegality && matchesType && matchesClan && matchesKeyword && hasImage;
             });
             return filtered;
@@ -151,7 +144,7 @@ const XMLDisplay = ({ searchOptions }) => {
         const isCorrectType = card.type === "personality" || card.type === "item";
         const isLegal = card.legal.includes("onyx") || card.legal.includes("shattered_empire");
 
-        if (isCorrectType && startIndex !== -1 && endIndex !== -1) {
+        if (startIndex !== -1 && endIndex !== -1) {
             const keywordsText = card.text.substring(startIndex, endIndex);
             // Remove HTML tags from keywords
             const keywords = keywordsText.replace(/<[^>]+>/g, '').split(/&#8226;|<br>/).map(keyword => keyword.trim());
