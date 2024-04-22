@@ -16,8 +16,8 @@ const XMLDisplay = ({ searchOptions }) => {
             setLoading(true);
             const fetchXMLData = async () => {
                 try {
-                    const response = await fetch('/db/database.xml');
-                    /* const response = await fetch('/db/dummydata.xml'); */
+                    /* const response = await fetch('/db/database.xml'); */
+                    const response = await fetch('/db/dummydata.xml');
                     const text = await response.text();
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(text, 'text/xml');
@@ -38,7 +38,7 @@ const XMLDisplay = ({ searchOptions }) => {
         if (xmlData && Object.keys(searchOptions).length > 0) {
             const filtered = filterCards(xmlData, searchOptions);
             setFilteredCards(filtered);
-            setCurrentPage(1); // Reset to first page when search options change
+            setCurrentPage(1);
         }
     }, [searchOptions, xmlData]);
 
@@ -46,19 +46,32 @@ const XMLDisplay = ({ searchOptions }) => {
         const json = {
             cards: []
         };
-
+    
         const cardNodes = xml.querySelectorAll('card');
         cardNodes.forEach((cardNode) => {
-            const edition = cardNode.querySelector('edition')?.textContent || '';
             const allowedEditions = ['AM', 'AMoH', 'CRI', 'EP', 'GoC', 'GS', 'HFW', 'Ivory', 'Onyx', 'Promo', 'RoJ', 'ROU', 'RtR', 'SCW', 'TBS', 'TCW', 'ThA', 'TwentyFestivals'];
-            if (allowedEditions.includes(edition)) {
+            let latestEdition = '';
+            let latestImage = '';
+    
+            // Iterate through all edition and image elements for the card
+            const editionNodes = cardNode.querySelectorAll('edition');
+            const imageNodes = cardNode.querySelectorAll('image');
+            editionNodes.forEach((editionNode, index) => {
+                const edition = editionNode.textContent || '';
+                if (allowedEditions.includes(edition)) {
+                    // Update latest edition and its associated image URL
+                    latestEdition = edition;
+                    latestImage = imageNodes[index].textContent || '';
+                }
+            });
+            if (latestEdition && latestImage) {
                 const card = {
                     id: cardNode.getAttribute('id'),
                     type: cardNode.getAttribute('type'),
                     name: cardNode.querySelector('name')?.textContent || '',
                     rarity: cardNode.querySelector('rarity')?.textContent || '',
-                    edition: edition,
-                    image: cardNode.querySelector('image')?.textContent || '',
+                    edition: latestEdition,
+                    image: latestImage,
                     legal: [],
                     text: cardNode.querySelector('text')?.textContent || '',
                     cost: cardNode.querySelector('cost')?.textContent || null,

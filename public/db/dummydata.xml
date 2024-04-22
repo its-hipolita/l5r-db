@@ -1,80 +1,38 @@
 <cards version="2024/4/15 Onyx Oracle Edition (playtest)">	<!--"Oct 4, 2015 Kamisasori no Kaisho (Complete), Nov 28, 2017 Kolat 1.3.4">-->
 
-<!-- <card id="TBS099" type="item">
-		<name>Decayed Blade</name>
-		<rarity>c</rarity>
-		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS099.jpg</image>
+<card id="Onyx346" type="strategy">
+		<name>Sneak Attack</name>
+		<edition>Imperial</edition><image edition="Imperial">images/cards/Imperial/Imperial208.jpg</image>
+		<edition>Emerald</edition><image edition="Emerald">images/cards/Emerald/Emerald211.jpg</image>
+		<edition>Obsidian</edition><image edition="Obsidian">images/cards/Obsidian/Obsidian211.jpg</image>
+		<edition>Jade</edition><image edition="Jade">images/cards/Jade/Jade235.jpg</image>
+		<edition>Pearl</edition><image edition="Pearl">images/cards/Pearl/Pearl250.jpg</image>
+		<edition>SoSM</edition><image edition="SoSM">images/cards/SoSM/SoSM048.jpg</image>
+		<edition>Gold</edition><image edition="Gold">images/cards/Gold/Gold399.jpg</image>
+		<edition>Diamond</edition><image edition="Diamond">images/cards/Diamond/Diamond302.jpg</image>
+		<edition>TG</edition><image edition="TG">images/cards/TG/TG061.jpg</image>
+		<edition>Lotus</edition><image edition="Lotus">images/cards/Lotus/Lotus297.jpg</image>
+		<edition>TG2</edition><image edition="TG2">images/cards/TG2/TG2080.jpg</image>
+		<edition>Samurai</edition><image edition="Samurai">images/cards/Samurai/Samurai286.jpg</image>
+		<edition>Celestial</edition><image edition="Celestial">images/cards/Celestial/Celestial280.jpg</image>
+		<edition>Emperor</edition><image edition="Emperor">images/cards/Emperor/Emperor345.jpg</image>
+		<edition>Promo</edition><image edition="Promo">images/cards/Promo/Promo579.jpg</image>
+		<edition>Ivory</edition><image edition="Ivory">images/cards/Ivory/Ivory340.jpg</image>
+		<edition>Onyx</edition><image edition="Onyx">images/cards/Onyx/Onyx346.jpg</image>
 		<legal>open</legal>
+		<legal>jade</legal>
+		<legal>gold</legal>
+		<legal>diamond</legal>
+		<legal>lotus</legal>
+		<legal>samurai</legal>
+		<legal>celestial</legal>
+		<legal>emperor</legal>
+		<legal>ivory</legal>
 		<legal>20F</legal>
-		<legal>onyx</legal>
-		<text><![CDATA[Ninja &#8226; One-Handed &#8226; Shadowlands &#8226; <b>Weapon</b><br><br> After this Item enters play, lose 1 Honor.<br><br><b>Battle, [BOW]:</b> Give a target enemy Personality -2F, or -5F if he or she shares a Clan Alignment with this Personality.]]></text>
-		<force>+2</force>
-		<chi>+1</chi>
-		<cost>3</cost>
-		<focus>3</focus>
-	</card>
-	<card id="TBS106" type="item">
-		<name>Wicked Chain</name>
-		<rarity>u</rarity>
-		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS106.jpg</image>
-		<legal>open</legal>
-		<legal>20F</legal>
-		<legal>onyx</legal>
-		<text><![CDATA[Chain &#8226; Obsidian &#8226; One-Handed &#8226; Shadowlands &#8226; <b>Weapon</b><br><br> After this Item enters play, lose 2 Honor and permanently give its Personality Shadowlands.<br><br><b>Battle, [BOW]:</b> Melee 3 Attack, with +1 strength if all your Personalities in this army are Shadowlands.]]></text>
-		<force>+2</force>
-		<chi>+1</chi>
-		<cost>5</cost>
-		<focus>1</focus>
-	</card>
-	<card id="ROU098" type="item">
-		<name>Jade No-Dachi</name>
-		<edition>ROU</edition><image edition="ROU">images/cards/ROU/ROU_098.png</image>
-		<legal>open</legal>
 		<legal>onyx</legal>
                             <legal>shattered_empire</legal>
-		<text><![CDATA[Jade &#8226; Two-Handed &#8226; Sword &#8226; <b>Weapon</b><br><br>This Weapon is One-Handed while<br>attached to a Berserker.<br><br><b>Engage, [BOW]:</b> Draw a card, then discard a card unless this Personality is opposing any Shadowlands cards. ]]></text>
-		<force>3</force>
-		<chi>1</chi>
-		<cost>5</cost>
-		<focus>2</focus>
-	</card> -->
-    <card id="TBS085" type="follower">
-		<name>Black Rabble</name>
-		<rarity>c</rarity>
-		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS085.jpg</image>
-		<legal>open</legal>
-		<legal>20F</legal>
-		<legal>onyx</legal>
-		<text><![CDATA[Goblin &#8226; Nonhuman &#8226; Shadowlands &#8226; Undead &#8226; <b>Expendable</b><br><br> After this Follower enters play, lose 2 Honor.<br><br><b>Battle:</b> Fear 2.]]></text>
-		<force>2</force>
-		<chi>0</chi>
-		<cost>2</cost>
-		<focus>2</focus>
-	</card>
-    <card id="TBS092" type="follower">
-		<name>Shinomen Defenders</name>
-		<rarity>c</rarity>
-		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS092.jpg</image>
-		<legal>open</legal>
-		<legal>20F</legal>
-		<legal>onyx</legal>
-		<text><![CDATA[Naga &#8226; Nonhuman &#8226; <b>Expendable</b><br><br><b>Battle, [BOW]:</b> Ranged 3 Attack.]]></text>
-		<force>0</force>
-		<chi>0</chi>
-		<cost>3</cost>
+		<text><![CDATA[<b>Engage:</b> The Attacker has the first opportunity to take a Battle action or pass in this battle.]]></text>
 		<focus>3</focus>
-	</card>
-    <card id="TBS089" type="follower">
-		<name>Kitra's Pride</name>
-		<rarity>c</rarity>
-		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS089.jpg</image>
-		<legal>open</legal>
-		<legal>20F</legal>
-		<legal>onyx</legal>
-		<text><![CDATA[Cat &#8226; Nonhuman &#8226; <b>Cavalry</b><br><br><b>Battle/Engage:</b> Give a target enemy Follower or Personality -2F.]]></text>
-		<force>3</force>
-		<chi>0</chi>
-		<cost>5</cost>
-		<focus>2</focus>
+		<artist><![CDATA[beet]]></artist>
 	</card>
 	</cards>
