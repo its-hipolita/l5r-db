@@ -17,6 +17,7 @@ const XMLDisplay = ({ searchOptions }) => {
             const fetchXMLData = async () => {
                 try {
                     const response = await fetch('/db/database.xml');
+                    /* const response = await fetch('/db/dummydata.xml'); */
                     const text = await response.text();
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(text, 'text/xml');
@@ -94,7 +95,6 @@ const XMLDisplay = ({ searchOptions }) => {
                 let matchesType = true;
                 let matchesClan = true;
                 let matchesKeyword = true;
-
                 // Extract filename from the end of the image URL
                 const imageUrlParts = card.image.split('/');
                 const imageName = imageUrlParts[imageUrlParts.length - 1];
@@ -122,7 +122,13 @@ const XMLDisplay = ({ searchOptions }) => {
                 // Filter based on keywords
                 if (options.keywords) {
                     const keywordsInCardText = parseKeywordsFromText(card);
-                    matchesKeyword = options.keywords.every(keyword => keywordsInCardText.includes(keyword));
+                    if (options.exclusiveSearch) {
+                        // Exclusive search: Return cards that match ALL keywords
+                        matchesKeyword = options.keywords.every(keyword => keywordsInCardText.includes(keyword));
+                    } else {
+                        // Inclusive search: Return cards that match ANY keyword
+                        matchesKeyword = options.keywords.some(keyword => keywordsInCardText.includes(keyword));
+                    }
                 }
                 /* if (dummyKeywords) {
                     const keywordsInCardText = parseKeywordsFromText(card);
@@ -147,12 +153,14 @@ const XMLDisplay = ({ searchOptions }) => {
 
         if (isCorrectType && startIndex !== -1 && endIndex !== -1) {
             const keywordsText = card.text.substring(startIndex, endIndex);
-            const keywords = keywordsText.split(/&#8226;|<br>/).map(keyword => keyword.trim());
+            // Remove HTML tags from keywords
+            const keywords = keywordsText.replace(/<[^>]+>/g, '').split(/&#8226;|<br>/).map(keyword => keyword.trim());
             return keywords;
         }
 
         return [];
     };
+
     // Calculate index of the last card on the current page
     const indexOfLastCard = currentPage * cardsPerPage;
     // Calculate index of the first card on the current page

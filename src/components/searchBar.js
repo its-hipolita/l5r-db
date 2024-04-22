@@ -13,6 +13,7 @@ const SearchBar = ({ onSearch }) => {
     const [cardType, setCardType] = useState('');
     const [clan, setClan] = useState('');
     const [selectedKeywords, setSelectedKeywords] = useState([]);
+    const [andOrSearch, setAndOrSearch] = useState([false]);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -21,13 +22,15 @@ const SearchBar = ({ onSearch }) => {
             legality,
             type: cardType,
             clan,
-            keywords: selectedKeywords
+            keywords: selectedKeywords,
+            exclusiveSearch: andOrSearch
         };
         onSearch(searchOptions);
     };
 
-    const handleKeywordSearch = (selectedOptions) => {
+    const handleKeywordSearch = (selectedOptions, andOrSearch) => {
         setSelectedKeywords(selectedOptions);
+        setAndOrSearch(andOrSearch);
     };
 
     return (

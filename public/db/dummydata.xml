@@ -1,0 +1,41 @@
+<cards version="2024/4/15 Onyx Oracle Edition (playtest)">	<!--"Oct 4, 2015 Kamisasori no Kaisho (Complete), Nov 28, 2017 Kolat 1.3.4">-->
+
+<card id="TBS099" type="item">
+		<name>Decayed Blade</name>
+		<rarity>c</rarity>
+		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS099.jpg</image>
+		<legal>open</legal>
+		<legal>20F</legal>
+		<legal>onyx</legal>
+		<text><![CDATA[Ninja &#8226; One-Handed &#8226; Shadowlands &#8226; <b>Weapon</b><br><br> After this Item enters play, lose 1 Honor.<br><br><b>Battle, [BOW]:</b> Give a target enemy Personality -2F, or -5F if he or she shares a Clan Alignment with this Personality.]]></text>
+		<force>+2</force>
+		<chi>+1</chi>
+		<cost>3</cost>
+		<focus>3</focus>
+	</card>
+	<card id="TBS106" type="item">
+		<name>Wicked Chain</name>
+		<rarity>u</rarity>
+		<edition>TBS</edition><image edition="TBS">images/cards/TBS/TBS106.jpg</image>
+		<legal>open</legal>
+		<legal>20F</legal>
+		<legal>onyx</legal>
+		<text><![CDATA[Chain &#8226; Obsidian &#8226; One-Handed &#8226; Shadowlands &#8226; <b>Weapon</b><br><br> After this Item enters play, lose 2 Honor and permanently give its Personality Shadowlands.<br><br><b>Battle, [BOW]:</b> Melee 3 Attack, with +1 strength if all your Personalities in this army are Shadowlands.]]></text>
+		<force>+2</force>
+		<chi>+1</chi>
+		<cost>5</cost>
+		<focus>1</focus>
+	</card>
+	<card id="ROU098" type="item">
+		<name>Jade No-Dachi</name>
+		<edition>ROU</edition><image edition="ROU">images/cards/ROU/ROU_098.png</image>
+		<legal>open</legal>
+		<legal>onyx</legal>
+                            <legal>shattered_empire</legal>
+		<text><![CDATA[Jade &#8226; Two-Handed &#8226; Sword &#8226; <b>Weapon</b><br><br>This Weapon is One-Handed while<br>attached to a Berserker.<br><br><b>Engage, [BOW]:</b> Draw a card, then discard a card unless this Personality is opposing any Shadowlands cards. ]]></text>
+		<force>3</force>
+		<chi>1</chi>
+		<cost>5</cost>
+		<focus>2</focus>
+	</card>
+	</cards>

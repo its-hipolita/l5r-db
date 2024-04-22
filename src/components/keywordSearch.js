@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import Autocomplete from '@mui/joy/Autocomplete';
+import { Autocomplete, Switch, Stack } from '@mui/joy'; 
 import keywordsArray from '../data/keywordsArray';
 
 const KeywordSearch = ({ onSearch }) => {
     const [selectedKeywords, setSelectedKeywords] = useState([]);
+    const [inclusiveSearch, setInclusiveSearch] = useState(false); 
 
     const handleKeywordChange = (event, selectedOptions) => {
         setSelectedKeywords(selectedOptions);
-        onSearch(selectedOptions);
+        onSearch(selectedOptions, inclusiveSearch);
+    };
+
+    const handleToggleChange = () => {
+        setInclusiveSearch((prev) => !prev); 
+        onSearch(selectedKeywords, inclusiveSearch);
     };
 
     return (
-        <div className="keyword-search">
+        <Stack spacing={2}> 
             <Autocomplete
                 multiple
                 id="tags-default"
@@ -20,7 +26,14 @@ const KeywordSearch = ({ onSearch }) => {
                 onChange={handleKeywordChange} 
                 value={selectedKeywords} 
             />
-        </div>
+            <Stack direction="row" alignItems="center" spacing={2}> 
+                <span>Exclusive Search:</span>
+                <Switch
+                    checked={!inclusiveSearch} 
+                    onChange={handleToggleChange}
+                />
+            </Stack>
+        </Stack>
     );
 };
 

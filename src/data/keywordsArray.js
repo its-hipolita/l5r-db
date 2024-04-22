@@ -9,7 +9,6 @@ const keywordsArray = [
     "Clan",
     "Samurai",
     "Yojimbo",
-    "Battle:",
     "Two-Handed",
     "Shadowlands",
     "Nonhuman",
@@ -209,5 +208,5 @@ const keywordsArray = [
     "Castle",
     "Kuniken"
 ];
-
+keywordsArray.sort();
 module.exports = keywordsArray;
