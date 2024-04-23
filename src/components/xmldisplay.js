@@ -4,12 +4,13 @@ import imageList from '../services/imageList.json';
 import { Select, Option, Button } from '@mui/joy';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 
-const XMLDisplay = ({ searchOptions }) => {
+const XMLDisplay = ({ searchOptions, user, onCardUpdate }) => {
     const [xmlData, setXmlData] = useState(null);
     const [filteredCards, setFilteredCards] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setCardsPerPage] = useState(20);
+    const [deck, setDeck] = useState([]);
 
     useEffect(() => {
         if (searchOptions) {
@@ -46,13 +47,13 @@ const XMLDisplay = ({ searchOptions }) => {
         const json = {
             cards: []
         };
-    
+
         const cardNodes = xml.querySelectorAll('card');
         cardNodes.forEach((cardNode) => {
             const allowedEditions = ['AM', 'AMoH', 'CRI', 'EP', 'GoC', 'GS', 'HFW', 'Ivory', 'Onyx', 'Promo', 'RoJ', 'ROU', 'RtR', 'SCW', 'TBS', 'TCW', 'ThA', 'TwentyFestivals'];
             let latestEdition = '';
             let latestImage = '';
-    
+
             // Iterate through all edition and image elements for the card
             const editionNodes = cardNode.querySelectorAll('edition');
             const imageNodes = cardNode.querySelectorAll('image');
@@ -95,8 +96,6 @@ const XMLDisplay = ({ searchOptions }) => {
     };
 
     const filterCards = (data, options) => {
-        console.log("options to filter");
-        console.log(options);
 
         if (data && data.cards && (options.searchTerm || options.legality || options.type || options.clan || options.keywords || options.textSearch)) {
             const filtered = data.cards.filter(card => {
@@ -187,13 +186,21 @@ const XMLDisplay = ({ searchOptions }) => {
         pageNumbers.push(i);
     }
 
+
+            // Function to handle deck updates
+            const onCardChange = (cardChange, isAdded) => {
+                setDeck(cardChange);
+                onCardUpdate(cardChange, isAdded);
+            };
+        
+
     return (
         <div>
             {loading ? (
                 <p>Loading XML data...</p>
             ) : (
                 <div>
-                    <CardGallery cards={currentCards} />
+                    <CardGallery cards={currentCards} user={user} onCardChange={onCardChange} />
                     {filteredCards.length > 0 && (
                         <div className="pagination-container flex items-center justify-center mt-4">
                             <div className="flex items-center space-x-6">
